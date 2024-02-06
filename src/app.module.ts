@@ -1,18 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CompanyModule } from './company/company.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { CityModule } from './modules/city/city.module';
+import { CompanyModule } from './modules/company/company.module';
+import { JobModule } from './modules/job/job.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
-  imports: [
-    UserModule,
-    CompanyModule,
-    AuthModule,
-    ConfigModule.forRoot({ isGlobal: true }),
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), CityModule, CompanyModule, JobModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
