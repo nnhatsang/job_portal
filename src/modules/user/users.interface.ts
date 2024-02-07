@@ -151,11 +151,11 @@ export interface Role {
   Name: string;
   user?: User;
 }
- interface User {
+export interface User{
   ID: number;
   Username: string;
   Password: string;
-  // RegisterDate?: Date;
+  RegisterDate?: Date;
   UserRole_ID?: number;
   // IsDeleted: boolean;
   refresh_token?: string;

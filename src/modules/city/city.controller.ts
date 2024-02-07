@@ -23,4 +23,9 @@ export class CityController {
   getCompanyCityId(@Param('id') id: string, @Query('kw') kw: string) {
     return this.cityService.getCompaniesByCity(id, kw);
   }
+  @Get(':id/jobs')
+  @ApiQuery({ name: 'kw', required: false })
+  getJobCityId(@Param('id') id: string, @Query('kw') kw: string) {
+    return this.cityService.getJobCityId(id, kw);
+  }
 }

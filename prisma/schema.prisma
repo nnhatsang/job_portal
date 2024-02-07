@@ -21,7 +21,7 @@ model administrator {
 model candidate {
   ID                Int                 @id @default(autoincrement())
   Full_Name         String?             @db.VarChar(100)
-  Email             String?             @db.VarChar(100)
+  Email             String?             @unique(map: "Email_UNIQUE") @db.VarChar(100)
   DateOfBirth       DateTime?           @db.Date
   City_ID           Int?
   Avatar            String?             @db.VarChar(300)

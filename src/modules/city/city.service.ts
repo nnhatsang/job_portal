@@ -1,5 +1,5 @@
 import { Injectable, Param } from '@nestjs/common';
-import { PrismaClient, city, company } from '@prisma/client';
+import { PrismaClient, city, company, job } from '@prisma/client';
 
 @Injectable()
 export class CityService {
@@ -24,12 +24,27 @@ export class CityService {
       where: { ID: parseInt(id, 10) },
     });
   }
-  getCompaniesByCity(id:string, kw: string): Promise<company[]> {
+  getCompaniesByCity(id: string, kw: string): Promise<company[]> {
     // Sử dụng Prisma để truy vấn cơ sở dữ liệu
     const companies = this.prisma.company.findMany({
       where: {
         City_ID: parseInt(id, 10),
         Ischecked: true,
+        IsDeleted: false,
+        Name: {
+          contains: kw,
+        },
+      },
+    });
+
+    return companies;
+  }
+  getJobCityId(id: string, kw: string): Promise<job[]> {
+    // Sử dụng Prisma để truy vấn cơ sở dữ liệu
+    const companies = this.prisma.job.findMany({
+      where: {
+        City_ID: parseInt(id, 10),
+        IsChecked: true,
         IsDeleted: false,
         Name: {
           contains: kw,
