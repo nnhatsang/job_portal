@@ -14,6 +14,9 @@ import * as argon from 'argon2';
 import { ResponseData } from 'src/utils/response.utils';
 import { InjectModel } from '@nestjs/mongoose';
 import ms from 'ms';
+import { IPayloadToken } from './auth.interface';
+import { Response } from 'express';
+import { LoginUserDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -107,11 +110,58 @@ export class AuthService {
   createRefreshToken = (payload: any) => {
     const refresh_token = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
-      expiresIn:
-        ms(this.configService.get<string>('JWT_REFRESH_EXPIRE')) / 1000,
+      expiresIn: ms(this.configService.get<string>('JWT_REFRESH_EXPIRE')),
     });
     return refresh_token;
   };
 
-  async login(sub = 'token login') {}
+  async login(sub = 'token login', loginUserDto: LoginUserDto): Promise<any> {
+    const user = await this.prisma.user.findUnique({
+      where: { Username: loginUserDto.username }, // Use 'Username' instead of 'username'
+    });
+    if (!user) {
+      throw new HttpException('user is not exist', HttpStatus.UNAUTHORIZED);
+    }
+    const checkPass = await argon.verify(user.Password, loginUserDto.password);
+    if (!checkPass) {
+      throw new HttpException(
+        'Password is not correct',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    let candidateID = null;
+
+    if (user.UserRole_ID === 3) {
+      // Nếu user.Role là 3, thực hiện truy vấn để lấy candidateID
+      const candidate = await this.prisma.candidate.findFirst({
+        where: { User_ID: user.ID },
+      });
+
+      if (candidate) {
+        candidateID = candidate.ID;
+      }
+      // console.log(candidateID);
+    }
+    const payload = {
+      sub,
+      userId: user.ID,
+      username: user.Username,
+      candidateID,
+    };
+    const refresh_token = this.createRefreshToken(payload);
+
+    await this.userService.updateUserToken(refresh_token, user.ID);
+    const data = {
+      sub,
+      refresh_token,
+      user: {
+        userID: user.ID,
+        userName: user.Username,
+        Role: user.UserRole_ID,
+        candidateID,
+      },
+    };
+
+    return ResponseData(201, 'login success', data);
+  }
 }

@@ -7,12 +7,12 @@ import { CompanyModule } from './modules/company/company.module';
 import { JobModule } from './modules/job/job.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), CityModule, CompanyModule, JobModule, UserModule, AuthModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), CityModule, CompanyModule, JobModule, UserModule, AuthModule, CommentModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
 
-// kết nối service lại với nhau cuar chính đối tượng đó và kết nối module của đối tượng khác

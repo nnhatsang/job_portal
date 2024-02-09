@@ -2,9 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  const logger = new Logger('Bootstrap');
+
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   app.useGlobalPipes(
@@ -13,10 +15,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Job Portal')
-    .addBearerAuth(
-      { type: 'http', scheme: `beaer`, bearerFormat: 'Token' },
-      'access-token',
-    )
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/swagger', app, document);
@@ -29,5 +28,8 @@ async function bootstrap() {
   //    'JWT_REFRESH_TOKEN_SECRET',
   //  );
   //  console.log('Refresh Token Secret:', refreshTokenSecret);
+  // await app.listen(3000).then(() => {
+  //   logger.verbose(`App is running on http://localhost:3000`);
+  // });
 }
 bootstrap();

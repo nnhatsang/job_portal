@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable, NotFoundException, Param } from '@nestjs/common';
 import { PrismaClient, city, company, job } from '@prisma/client';
 
 @Injectable()
@@ -19,14 +19,20 @@ export class CityService {
     return this.prisma.city.findMany();
   }
 
-  getCityId(@Param('id') id) {
-    return this.prisma.city.findUnique({
+  async getCityId(@Param('id') id) {
+    const city = await this.prisma.city.findUnique({
       where: { ID: parseInt(id, 10) },
     });
+
+    if (!city) {
+      throw new NotFoundException('City not found');
+    }
+
+    return city;
   }
-  getCompaniesByCity(id: string, kw: string): Promise<company[]> {
+  async getCompaniesByCity(id: string, kw: string): Promise<company[]> {
     // Sử dụng Prisma để truy vấn cơ sở dữ liệu
-    const companies = this.prisma.company.findMany({
+    const companies = await this.prisma.company.findMany({
       where: {
         City_ID: parseInt(id, 10),
         Ischecked: true,
@@ -37,11 +43,15 @@ export class CityService {
       },
     });
 
+    if (!companies.length) {
+      throw new NotFoundException('Companies not found');
+    }
+
     return companies;
   }
-  getJobCityId(id: string, kw: string): Promise<job[]> {
+  async getJobCityId(id: string, kw: string): Promise<job[]> {
     // Sử dụng Prisma để truy vấn cơ sở dữ liệu
-    const companies = this.prisma.job.findMany({
+    const companies = await this.prisma.job.findMany({
       where: {
         City_ID: parseInt(id, 10),
         IsChecked: true,
@@ -51,7 +61,9 @@ export class CityService {
         },
       },
     });
-
+    if (!companies.length) {
+      throw new NotFoundException('Companies not found');
+    }
     return companies;
   }
 }

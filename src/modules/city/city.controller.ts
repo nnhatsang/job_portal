@@ -8,24 +8,44 @@ export class CityController {
   constructor(private readonly cityService: CityService) {}
   prisma = new PrismaClient();
   @Get()
-  @ApiQuery({ name: 'kw', required: false })
-  getAll(@Query('kw') kw?: string): Promise<city[]> {
-    return this.cityService.getAll(kw);
+  async getAllCities(@Query('kw') kw?: string) {
+    try {
+      const cities = await this.cityService.getAll(kw);
+      return { cities };
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 
   @Get(':id')
-  getCityId(@Param('id') id) {
-    return this.cityService.getCityId(id);
+  async getCityById(@Param('id') id: string) {
+    try {
+      const city = await this.cityService.getCityId(id);
+      return { city };
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 
-  @Get(':id/company')
+  @Get(':id/companies')
   @ApiQuery({ name: 'kw', required: false })
-  getCompanyCityId(@Param('id') id: string, @Query('kw') kw: string) {
-    return this.cityService.getCompaniesByCity(id, kw);
+  async getCompaniesByCity(@Param('id') id: string, @Query('kw') kw?: string) {
+    try {
+      const companies = await this.cityService.getCompaniesByCity(id, kw);
+      return { companies };
+    } catch (error) {
+      return { error: error.message };
+    }
   }
+
   @Get(':id/jobs')
   @ApiQuery({ name: 'kw', required: false })
-  getJobCityId(@Param('id') id: string, @Query('kw') kw: string) {
-    return this.cityService.getJobCityId(id, kw);
+  async getJobsByCity(@Param('id') id: string, @Query('kw') kw?: string) {
+    try {
+      const jobs = await this.cityService.getJobCityId(id, kw);
+      return { jobs };
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 }
