@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "c8971dce-7e86-447b-b7bf-102149a4ce3a",
+		"name": "portal_job",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26387229",
+		"_collection_link": "https://galactic-crescent-932241.postman.co/workspace/nnhatsang~c2c75c81-adaa-454b-9470-6c3cba1718f1/collection/26387229-c8971dce-7e86-447b-b7bf-102149a4ce3a?action=share&source=collection_link&creator=26387229"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register Candidate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "fullname",
+									"value": "caoduy",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "caoduy",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "caoduuy@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "caoduy",
+									"type": "text"
+								},
+								{
+									"key": "fullname",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "http://localhost:3000/auth/regisCa"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "caoduy",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "caoduy",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:3000/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Info-user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NDkzOSwiZXhwIjoxNzk0MDQ0OTM5fQ.wIoj2eall22ic72sfA8oBiRXMfaq3HBCkCo6pr6FZDA",
+								"type": "text"
+							}
+						],
+						"url": "{{urlPortal}}/user/info-user"
+					},
+					"response": []
+				},
+				{
+					"name": "list_cv",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NDkzOSwiZXhwIjoxNzk0MDQ0OTM5fQ.wIoj2eall22ic72sfA8oBiRXMfaq3HBCkCo6pr6FZDA",
+								"type": "text"
+							}
+						],
+						"url": "{{urlPortal}}/user/list_cv"
+					},
+					"response": []
+				},
+				{
+					"name": "list_applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NDkzOSwiZXhwIjoxNzk0MDQ0OTM5fQ.wIoj2eall22ic72sfA8oBiRXMfaq3HBCkCo6pr6FZDA",
+								"type": "text"
+							}
+						],
+						"url": "{{urlPortal}}/user/list_applications"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NDkzOSwiZXhwIjoxNzk0MDQ0OTM5fQ.wIoj2eall22ic72sfA8oBiRXMfaq3HBCkCo6pr6FZDA",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Full_Name",
+									"value": "caoooduy",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{urlPortal}}/user/l0"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "get all city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/city"
+					},
+					"response": []
+				},
+				{
+					"name": "get city by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/city/1"
+					},
+					"response": []
+				},
+				{
+					"name": "get companies by CityID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/city/1/companies"
+					},
+					"response": []
+				},
+				{
+					"name": "get jobs by CityID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/city/2/jobs"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "get all comapny",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/company/"
+					},
+					"response": []
+				},
+				{
+					"name": "get all job by companyID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/company/3/jobs"
+					},
+					"response": []
+				},
+				{
+					"name": "detail company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/company/3"
+					},
+					"response": []
+				},
+				{
+					"name": "get comment by companyID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{urlPortal}}/company/1/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "comment company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NzE2NywiZXhwIjoxNzk0MDQ3MTY3fQ.wqQiTx99D_7fkbRvU6iP6X7kmhQ_CsXhCanLtcrXorE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\":2,\r\n    \"rating\":3,\r\n    \"assessment\":\"tedst1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{urlPortal}}/comment"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CVS",
+			"item": [
+				{
+					"name": "create cv",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6MTAsInVzZXJuYW1lIjoiY2FvZHV5IiwiY2FuZGlkYXRlSUQiOjUsImlhdCI6MTcwNzY0NzE2NywiZXhwIjoxNzk0MDQ3MTY3fQ.wqQiTx99D_7fkbRvU6iP6X7kmhQ_CsXhCanLtcrXorE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CareerGoals\":\"none\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{urlPortal}}/curriculum-vitae"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Candidate Job",
+			"item": [
+				{
+					"name": "create apply job ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6OCwidXNlcm5hbWUiOiJuaGF0c2FuZzEiLCJjYW5kaWRhdGVJRCI6MywiaWF0IjoxNzA3NjQ3OTkzLCJleHAiOjE3OTQwNDc5OTN9.niMVfRN2OYnafx10oWoo0lZAKoChMcVUXPmrZwfwru0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Job_ID",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "CV_ID",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{urlPortal}}/application"
+					},
+					"response": []
+				},
+				{
+					"name": "update application",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6OCwidXNlcm5hbWUiOiJuaGF0c2FuZzEiLCJjYW5kaWRhdGVJRCI6MywiaWF0IjoxNzA3NjQ3OTkzLCJleHAiOjE3OTQwNDc5OTN9.niMVfRN2OYnafx10oWoo0lZAKoChMcVUXPmrZwfwru0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "CV_ID",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "Job_ID",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{urlPortal}}/application/4"
+					},
+					"response": []
+				},
+				{
+					"name": "delete application",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0b2tlbiBsb2dpbiIsInVzZXJJZCI6OCwidXNlcm5hbWUiOiJuaGF0c2FuZzEiLCJjYW5kaWRhdGVJRCI6MywiaWF0IjoxNzA3NjQ3OTkzLCJleHAiOjE3OTQwNDc5OTN9.niMVfRN2OYnafx10oWoo0lZAKoChMcVUXPmrZwfwru0",
+								"type": "text"
+							}
+						],
+						"url": "{{urlPortal}}/application/6"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
