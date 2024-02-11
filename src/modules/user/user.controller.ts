@@ -21,7 +21,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { ResponseData } from 'src/utils/response.utils';
-import { CreateCurriculumVitaeDto } from './dto/create-cv.dto';
+import { CreateCurriculumVitaeDto } from '../curriculum-vitae/dto/create-cv.dto';
 
 @Controller('user')
 @ApiTags('user')
@@ -35,24 +35,21 @@ export class UserController {
 
     return this.userService.getInfoUser(userId);
   }
-  // async getInfoUser(@Headers('authorization') authorizationHeader: string) {
-  //   try {
-  //     const token = authorizationHeader.replace('Bearer ', ''); // Lấy token từ header
-  //     const result = await this.userService.getInfoUser(token);
-  //     return result;
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   @Get('list_applications')
   @UseGuards(AuthGuard('jwt'))
   async listApplications(@Req() req) {
-    const userId = req.user.id; // Lấy id từ user sau khi đã được xác thực
+    const userId = req.user.candidateInfo.candidateID; // Lấy id từ user sau khi đã được xác thực
     return this.userService.listApplications(userId);
   }
+  @Get('list_cv')
+  @UseGuards(AuthGuard('jwt'))
+  async listcvs(@Req() req) {
+    const userId = req.user.candidateInfo.candidateID; // Lấy id từ user sau khi đã được xác thực
+    return this.userService.listCv(userId);
+  }
 
-  @Patch(':userId')
+  @Put(':userId')
   @UseGuards(AuthGuard('jwt'))
   async updateUserInfo(
     @Param('userId') userId: string,
@@ -64,43 +61,10 @@ export class UserController {
         updateUserData,
       );
       return ResponseData(200, 'update success', data);
-      // return {
-      //   message: 'User information updated successfully',
-      //   statusCode: 200,
-      // };
     } catch (error) {
       throw new UnauthorizedException(
         'Unauthorized to update user information',
       );
-    }
-  }
-
-  @Post('createCV')
-  @UseGuards(AuthGuard('jwt'))
-  async createCurriculumVitae(
-    @Req() req,
-    // @Param('candidateId') candidateId: string,
-    @Body() createCurriculumVitaeDto: CreateCurriculumVitaeDto,
-  ) {
-    try {
-      console.log('Before calling createCurriculumVitae');
-
-      const candidateId = req.user.candidateInfo.candidateID;
-      console.log(candidateId);
-      // try {
-      const result = await this.userService.createCurriculumVitae(
-        parseInt(candidateId, 10),
-        createCurriculumVitaeDto,
-      );
-
-      return {
-        message: 'Curriculum Vitae created successfully',
-        statusCode: 201,
-        content: result,
-        data: createCurriculumVitaeDto,
-      };
-    } catch (error) {
-      throw new NotFoundException('Candidate not found');
     }
   }
 }

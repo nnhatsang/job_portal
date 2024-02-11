@@ -5,11 +5,16 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaClient, candidate_job, user } from '@prisma/client';
+import {
+  PrismaClient,
+  candidate_job,
+  curriculum_vitae,
+  user,
+} from '@prisma/client';
 import mongoose from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
-import { CreateCurriculumVitaeDto } from './dto/create-cv.dto';
+import { CreateCurriculumVitaeDto } from '../curriculum-vitae/dto/create-cv.dto';
 
 @Injectable()
 export class UserService {
@@ -101,20 +106,17 @@ export class UserService {
     });
   }
 
-  async updateUser(userId: any, updateUserData: UpdateUserDto) {
-    // Update candidate information using Prisma
-    // const updatedUser = await this.prisma.user.update({
-    //   where: { ID: parseInt(userId, 10) },
-    //   data: {
-    //     // Username: updateUserData.username,
-    //     // Password: updateUserData.Password,
+  async listCv(userId: number): Promise<curriculum_vitae[]> {
+    return this.prisma.curriculum_vitae.findMany({
+      where: {
+        Candidate_ID: userId,
+      },
+      include: {
+      },
+    });
+  }
 
-    //   },
-    // });
-    // if (!updatedUser) {
-    //   throw new NotFoundException('User not found');
-    // }
-    // Update candidate information using Prisma
+  async updateUser(userId: any, updateUserData: UpdateUserDto) {
     const candidate = await this.prisma.candidate.findFirst({
       where: { User_ID: parseInt(userId, 10) },
     });
@@ -123,7 +125,6 @@ export class UserService {
         where: { ID: candidate.ID },
         data: {
           ...updateUserData,
-          // Add other candidate properties
         },
       });
       if (!updatedCandidate) {
@@ -136,42 +137,5 @@ export class UserService {
         candidate: updatedCandidate,
       };
     }
-  }
-
-  // async createCurriculumVitae(
-  //   candidateId: number,
-  //   cvData: CreateCurriculumVitaeDto,
-  // ) {
-
-  //   console.log('cvData:', cvData); // In ra giá trị của cvData
-
-  //   const createdCv = await this.prisma.curriculum_vitae.create({
-  //     data: {
-  //       Candidate_ID: candidateId,
-  //       Is_Deleted: false,
-  //       ...cvData,
-  //     },
-  //   });
-  //   console.log('CareerGoals,CareerGoals', createdCv);
-
-  //   return createdCv;
-  // }
-
-  async createCurriculumVitae(
-    candidateId: number,
-    cvData: CreateCurriculumVitaeDto,
-  ) {
-    console.log('cvData:', cvData); // In ra giá trị của cvData
-
-    const createdCv = await this.prisma.curriculum_vitae.create({
-      data: {
-        Candidate_ID: candidateId,
-        Is_Deleted: false,
-        ...cvData,
-      },
-    });
-    console.log('CareerGoals,CareerGoals', createdCv);
-
-    return createdCv;
   }
 }

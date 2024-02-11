@@ -76,7 +76,7 @@ export class CompanyService {
 
   getComments(id: string) {
     return this.prisma.comment.findMany({
-      where: { ID: parseInt(id, 10) },
+      where: { Company_ID: parseInt(id, 10) },
     });
   }
 }
